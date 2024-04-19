@@ -35,9 +35,9 @@ describe 'galera' do
       it { is_expected.to contain_class('galera::redhat') }
       it { is_expected.to contain_package(os_params[:p_additional_packages]).with(ensure: 'installed') }
       it { is_expected.to contain_service('mysql@bootstrap') }
-      it { is_expected.to contain_file('/lib/systemd/system/mysqlchk.socket').with_content(%r{ListenStream=9200}) }
+      it { is_expected.to contain_file('/etc/systemd/system/mysqlchk.socket').with_content(%r{ListenStream=9200}) }
       it {
-        is_expected.to contain_file('/lib/systemd/system/mysqlchk@.service')
+        is_expected.to contain_file('/etc/systemd/system/mysqlchk@.service')
           .with_content(%r{User=clustercheck})
           .with_content(%r{Group=clustercheck})
           .with_content(%r{ExecStart=/usr/local/bin/clustercheck})
@@ -68,7 +68,7 @@ describe 'galera' do
       before(:each) do
         params.merge!(status_port: 12_345)
       end
-      it { is_expected.to contain_file('/lib/systemd/system/mysqlchk.socket').with_content(%r{ListenStream=12345}) }
+      it { is_expected.to contain_file('/etc/systemd/system/mysqlchk.socket').with_content(%r{ListenStream=12345}) }
     end
   end
 

@@ -67,13 +67,13 @@ class galera::status (
     Exec<| title == 'bootstrap_galera_cluster' |> -> Class['xinetd']
   }
   else {
-    File['/usr/local/bin/clustercheck'] -> file { '/lib/systemd/system/mysqlchk.socket':
+    File['/usr/local/bin/clustercheck'] -> file { '/etc/systemd/system/mysqlchk.socket':
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
       content => epp('galera/mysqlchk.socket.epp'),
     }
-    -> file { '/lib/systemd/system/mysqlchk@.service':
+    -> file { '/etc/systemd/system/mysqlchk@.service':
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
